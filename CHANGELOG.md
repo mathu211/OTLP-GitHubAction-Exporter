@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.1](https://github.com/StephenGoodall/Dynatrace-GitHubAction-Exporter/compare/v1.1.0...v1.1.1) (2024-10-27)
+
+
+### Bug Fixes
+
+* Add icon and colour for GitHub actions marketplace ([8ba69ec](https://github.com/StephenGoodall/Dynatrace-GitHubAction-Exporter/commit/8ba69ec0c56e30adaf10c371d7ff80322ea42b85))
+
 ## [1.1.0](https://github.com/StephenGoodall/Dynatrace-GitHubAction-Exporter/compare/v1.0.0...v1.1.0) (2024-10-27)
 
 
