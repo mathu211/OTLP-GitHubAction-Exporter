@@ -19,11 +19,11 @@ env:
 jobs:
 
   Dynatrace-GitHubAction-Exporter:
-    name: Dynatrace-GitHubAction-Exporter
+    name: Dynatrace GitHubAction Exporter
     runs-on: ubuntu-latest
     if: ${{ always() }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Dynatrace-GitHubAction-Exporter
+      - name: Run Dynatrace GitHubAction Exporter
         uses: StephenGoodall/Dynatrace-GitHubAction-Exporter@v1
