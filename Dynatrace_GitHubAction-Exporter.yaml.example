@@ -1,0 +1,29 @@
+name: OpenTelemetry - Export OTel Traces and Logs to Dynatrace
+
+on:
+  workflow_run:
+    workflows: ['*']
+    types: [completed]
+
+permissions: read-all
+
+env:
+  ACTION_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  DYNATRACE_API_TOKEN: ${{ secrets.DYNATRACE_OTEL_API_TOKEN }}
+  DYNATRACE_TENANT_ID: ${{ secrets.DYNATRACE_TENANT_ID }}
+  # OTEL_EXPORTER_OTEL_ENDPOINT: (optional - to send it somewhere other than https://${DYNATRACE_TENANT_ID}.live.dynatrace.com/api/v2/otlp/)
+  WORKFLOW_RUN_ID: ${{ github.event.workflow_run.id }}
+  WORKFLOW_RUN_NAME: ${{ github.event.workflow_run.name }}
+  # GITHUB_DEBUG: true (Optional - default is false)
+
+jobs:
+
+  Dynatrace-GitHubAction-Exporter:
+    name: Dynatrace-GitHubAction-Exporter
+    runs-on: ubuntu-latest
+    if: ${{ always() }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Dynatrace-GitHubAction-Exporter
+        uses: StephenGoodall/Dynatrace-GitHubAction-Exporter@v1
