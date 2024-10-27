@@ -3,6 +3,10 @@ name: Dynatrace GitHubAction Exporter
 description: Exports Workflow Run Telemetry as traces with logs in context over OTLP
 author: StephenGoodall
 
+branding:
+  icon: 'activity'
+  color: 'green'
+
 runs:
   using: 'docker'
   image: 'Dockerfile'
