@@ -31,10 +31,9 @@ def check_env_vars():
         pass
 
     # Check endpoint specific keys
-    if ("DYNATRACE_TENANT_ID" not in os.environ and "OTEL_EXPORTER_OTEL_ENDPOINT" not in os.environ):
+    if "DYNATRACE_TENANT_ID" not in os.environ and "OTEL_EXPORTER_OTEL_ENDPOINT" not in os.environ:
         print(f"One of DYNATRACE_TENANT_ID or OTEL_EXPORTER_OTEL_ENDPOINT must be set")
-        keys_not_set.append("DYNATRACE_TENANT_ID")
-        keys_not_set.append("OTEL_EXPORTER_OTEL_ENDPOINT")
+        keys_not_set.append("DYNATRACE_TENANT_ID or OTEL_EXPORTER_OTEL_ENDPOINT")
 
     if len(keys_not_set) > 0:
         for key in keys_not_set:
