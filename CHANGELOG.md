@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.0](https://github.com/StephenGoodall/OTLP-GitHubAction-Exporter/compare/v1.3.0...v1.4.0) (2024-10-28)
+
+
+### Features
+
+* Update name ([10a039d](https://github.com/StephenGoodall/OTLP-GitHubAction-Exporter/commit/10a039d79a4ea381d6aa20e18d6c81a0804cceba))
+
 ## [1.3.0](https://github.com/StephenGoodall/Dynatrace-GitHubAction-Exporter/compare/v1.2.0...v1.3.0) (2024-10-28)
 
 
