@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.0](https://github.com/StephenGoodall/Dynatrace-GitHubAction-Exporter/compare/v1.1.1...v1.2.0) (2024-10-28)
+
+
+### Features
+
+* Add optional configurations for Endpoint and Headers overrides ([d3625e1](https://github.com/StephenGoodall/Dynatrace-GitHubAction-Exporter/commit/d3625e15f88685f732310a9ec9df80d28ec9cbe6))
+
 ## [1.1.1](https://github.com/StephenGoodall/Dynatrace-GitHubAction-Exporter/compare/v1.1.0...v1.1.1) (2024-10-27)
 
 
