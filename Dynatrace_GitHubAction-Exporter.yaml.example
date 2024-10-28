@@ -11,9 +11,10 @@ env:
   ACTION_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   DYNATRACE_API_TOKEN: ${{ secrets.DYNATRACE_OTEL_API_TOKEN }}
   DYNATRACE_TENANT_ID: ${{ secrets.DYNATRACE_TENANT_ID }}
-  # OTEL_EXPORTER_OTEL_ENDPOINT: (optional - to send it somewhere other than https://${DYNATRACE_TENANT_ID}.live.dynatrace.com/api/v2/otlp/)
+  # OTEL_EXPORTER_OTEL_ENDPOINT: (optional - to send requests somewhere other than https://${DYNATRACE_TENANT_ID}.live.dynatrace.com/api/v2/otlp/)
   WORKFLOW_RUN_ID: ${{ github.event.workflow_run.id }}
   WORKFLOW_RUN_NAME: ${{ github.event.workflow_run.name }}
+  # HEADERS_OVERRIDE: "Authorization=Bearer xxxxxx, AnotherHeader=Value" (optional - comma separate key=value pairs to override the default Auth Headers in the HTTP requests)
   # GITHUB_DEBUG: true (Optional - default is false)
 
 jobs:

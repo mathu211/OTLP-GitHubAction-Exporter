@@ -20,6 +20,7 @@ ACTION_TOKEN = os.getenv('ACTION_TOKEN')
 DYNATRACE_API_TOKEN = os.getenv('DYNATRACE_API_TOKEN')
 DYNATRACE_TENANT_ID = os.getenv('DYNATRACE_TENANT_ID')
 OTEL_EXPORTER_OTEL_ENDPOINT = os.getenv('OTEL_EXPORTER_OTEL_ENDPOINT')
+HEADERS_OVERRIDE = os.getenv('HEADERS_OVERRIDE')
 
 WORKFLOW_RUN_ID = os.getenv('WORKFLOW_RUN_ID')
 WORKFLOW_RUN_NAME=os.getenv('WORKFLOW_RUN_NAME')
@@ -40,7 +41,16 @@ else:
 if OTEL_EXPORTER_OTEL_ENDPOINT in (None, ''):
     OTEL_EXPORTER_OTEL_ENDPOINT = f"https://{DYNATRACE_TENANT_ID}.live.dynatrace.com/api/v2/otlp/"
 
-headers={ "Authorization": f"Api-Token {DYNATRACE_API_TOKEN}" }
+
+# Build Headers for request
+headers = {}
+if HEADERS_OVERRIDE in (None, ""):
+    headers = {"Authorization": f"Api-Token {DYNATRACE_API_TOKEN}"}
+else:
+    HEADERS_SPLIT = HEADERS_OVERRIDE.split(",")
+    for header in HEADERS_SPLIT:
+        header_obj = header.split("=")
+        headers[header_obj[0].strip()] = header_obj[1]
 
 
 # Github API client
@@ -50,7 +60,7 @@ api = GhApi(owner=GITHUB_REPOSITORY_OWNER, repo=GITHUB_REPOSITORY_NAME.split('/'
 get_workflow_run_by_run_id = do_fastcore_decode(api.actions.get_workflow_run(WORKFLOW_RUN_ID))
 get_workflow_run_jobs_by_run_id = do_fastcore_decode(api.actions.list_jobs_for_workflow_run(WORKFLOW_RUN_ID))
 
-#Set OTEL resources
+# Set OTEL resources
 global_attributes={
     SERVICE_NAME: GITHUB_REPOSITORY_NAME,
     "workflow_run_id": WORKFLOW_RUN_ID,
@@ -72,13 +82,13 @@ if GITHUB_CUSTOM_ATTS != "":
     except:
         print("Error parsing GITHUB_CUSTOM_ATTS check your configuration, continuing without custom attributes")
         pass
-    
-#Set workflow level tracer and logger
+
+# Set workflow level tracer and logger
 global_resource = Resource(attributes=global_attributes)
 tracer = otel_tracer(OTEL_EXPORTER_OTEL_ENDPOINT, headers, global_resource, "tracer")
 
 
-#Ensure we don't export data for Dynatrace_OTel_GitHubAction exporter
+# Ensure we don't export data for Dynatrace_OTel_GitHubAction exporter
 workflow_run = json.loads(get_workflow_run_jobs_by_run_id)
 job_lst=[]
 for job in workflow_run['jobs']:
@@ -219,7 +229,7 @@ for job in job_lst:
         print("Finished processing job ->",job['name'])
     except Exception as e:
         print("Unable to process job ->",job['name'],"<- due to error",e)
-                    
+
 p_parent.end(end_time=workflow_run_finish_time)
 print("Finished processing Workflow ->",WORKFLOW_RUN_NAME,"run id ->",WORKFLOW_RUN_ID)
 print("All data exported to Dynatrace")

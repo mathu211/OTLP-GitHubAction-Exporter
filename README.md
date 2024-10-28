@@ -28,7 +28,7 @@ Also, refer to the Dynatrace Open Telemetry information page:
 
 
 1. Configure your Dynatrace API Token as a secret in your repository, and call it `DYNATRACE_OTEL_API_TOKEN`
-2. Configure your Dynatrace Tenant ID (eg. abc12345) as a secret in your repository, and call it `DYNATRACE_TENANT_ID`
+2. Configure your Dynatrace Tenant ID (eg. abc12345) as a secret in your repository, and call it `DYNATRACE_TENANT_ID` (Not needed if using `OTEL_EXPORTER_OTEL_ENDPOINT` - See [Optional Configuration](##Optional-Configuration))
 3. The exporter uses automatic token authentication by default, for this you need to ensure that `GITHUB_TOKEN` has at least read access to the action scope (see example [Here](Dynatrace_GitHubAction-Exporter.yaml.example?plain=1#L8)).
 
 Create your workflow yaml, under .github/workflows, this can be named anything you like.
@@ -42,6 +42,17 @@ on:
     types: [completed]
 ```
 This means it will run whenever any of your other workflows complete - which means you don't need to edit any existing workflows, just put the new yaml file alongside the others in your repository.
+
+## Optional Configuration
+**OTEL_EXPORTER_OTEL_ENDPOINT** - This can be used to override the Dynatrace SaaS specific endpoint
+
+**HEADERS_OVERRIDE** - This can be used to override the default Headers (Authorization: Api-Token dtc.01......). Enter these in a commas separated, key=value format.
+For example:
+```
+Authorization=Bearer 123456,AnotherHeader=Value
+```
+
+**GITHUB_DEBUG** - see [Troubleshooting](#Troubleshooting)
 
 ## Example
 
