@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.0](https://github.com/StephenGoodall/Dynatrace-GitHubAction-Exporter/compare/v1.2.0...v1.3.0) (2024-10-28)
+
+
+### Features
+
+* Update to required key checking ([df2ae0e](https://github.com/StephenGoodall/Dynatrace-GitHubAction-Exporter/commit/df2ae0eda966dddd086dbdf148879b8b11294e27))
+
 ## [1.2.0](https://github.com/StephenGoodall/Dynatrace-GitHubAction-Exporter/compare/v1.1.1...v1.2.0) (2024-10-28)
 
 
