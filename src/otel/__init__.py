@@ -18,29 +18,29 @@ from opentelemetry.sdk.metrics.export import PeriodicExportingMetricReader
 def getLogExporter(endpoint, headers, protocol):
      match protocol:
         case "HTTP":
-             return HTTPOTLPLogExporter(endpoint=f"{endpoint}v1/logs",headers=headers)
+             return HTTPOTLPLogExporter(endpoint=endpoint, headers=headers)
         case "GRPC":
-             return GRPCOTLPLogExporter(endpoint=f"{endpoint}v1/logs",headers=headers)
+             return GRPCOTLPLogExporter(endpoint=endpoint, headers=headers)
         case _:
-             return HTTPOTLPLogExporter(endpoint=f"{endpoint}v1/logs",headers=headers)
+             return HTTPOTLPLogExporter(endpoint=endpoint, headers=headers)
 
 def getSpanExporter(endpoint, headers, protocol):
      match protocol:
         case "HTTP":
-             return HTTPOTLPSpanExporter(endpoint=f"{endpoint}v1/traces",headers=headers)
+             return HTTPOTLPSpanExporter(endpoint=endpoint, headers=headers)
         case "GRPC":
-             return GRPCOTLPSpanExporter(endpoint=f"{endpoint}v1/traces",headers=headers)
+             return GRPCOTLPSpanExporter(endpoint=endpoint, eaders=headers)
         case _:
-             return HTTPOTLPSpanExporter(endpoint=f"{endpoint}v1/traces",headers=headers)
+             return HTTPOTLPSpanExporter(endpoint=endpoint, headers=headers)
 
 def getMetricExporter(endpoint, headers, protocol):
      match protocol:
         case "HTTP":
-             return HTTPOTLPMetricExporter(endpoint=f"{endpoint}v1/metrics",headers=headers)
+             return HTTPOTLPMetricExporter(endpoint=endpoint, headers=headers)
         case "GRPC":
-             return GRPCOTLPMetricExporter(endpoint=f"{endpoint}v1/metrics",headers=headers)
+             return GRPCOTLPMetricExporter(endpoint=endpoint, headers=headers)
         case _:
-             return HTTPOTLPMetricExporter(endpoint=f"{endpoint}v1/metrics",headers=headers)
+             return HTTPOTLPMetricExporter(endpoint=endpoint, headers=headers)
 
 def create_otel_attributes(atts, GITHUB_SERVICE_NAME):
     attributes={SERVICE_NAME: GITHUB_SERVICE_NAME}
