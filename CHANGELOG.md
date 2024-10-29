@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.0.2](https://github.com/StephenGoodall/OTLP-GitHubAction-Exporter/compare/v3.0.1...v3.0.2) (2024-10-29)
+
+
+### Bug Fixes
+
+* Pushing minor change to create a new release version ([6da2589](https://github.com/StephenGoodall/OTLP-GitHubAction-Exporter/commit/6da258953909c608edc2b842248ca7a6448c1b2e))
+
 ## [3.0.1](https://github.com/StephenGoodall/OTLP-GitHubAction-Exporter/compare/v3.0.0...v3.0.1) (2024-10-29)
 
 
