@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.0.2](https://github.com/StephenGoodall/OTLP-GitHubAction-Exporter/compare/v2.0.1...v2.0.2) (2024-10-29)
+
+
+### Bug Fixes
+
+* Update example version number ([cc9da12](https://github.com/StephenGoodall/OTLP-GitHubAction-Exporter/commit/cc9da1264de2ecbebc32fddf01557a94737cba0f))
+
 ## [2.0.1](https://github.com/StephenGoodall/OTLP-GitHubAction-Exporter/compare/v2.0.0...v2.0.1) (2024-10-29)
 
 
