@@ -1,5 +1,16 @@
 # Changelog
 
+## [2.0.0](https://github.com/StephenGoodall/OTLP-GitHubAction-Exporter/compare/v1.4.0...v2.0.0) (2024-10-29)
+
+
+### ⚠ BREAKING CHANGES
+
+* Add in gRPC option (yet to be tested)
+
+### Features
+
+* Add in gRPC option (yet to be tested) ([07ba488](https://github.com/StephenGoodall/OTLP-GitHubAction-Exporter/commit/07ba4885417ae711876e2522a79338f2209504c9))
+
 ## [1.4.0](https://github.com/StephenGoodall/OTLP-GitHubAction-Exporter/compare/v1.3.0...v1.4.0) (2024-10-28)
 
 
