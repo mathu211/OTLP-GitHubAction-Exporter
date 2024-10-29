@@ -61,7 +61,7 @@ This means it will run whenever any of your other workflows complete - which mea
 
 **GITHUB_DEBUG** - see [Troubleshooting](#Troubleshooting)
 
-## Example
+## Examples
 
 Traces are viewable in the Distributed Tracing app within Dynatrace. The service name will be your repository name:
 ![DsitrubutedTraces](images/DistributedTraces.png)
