@@ -6,4 +6,4 @@ services:
       - VERSION=$VERSION
     build:
       context: ./
-    image: ghcr.io/StephenGoodall/Dynatrace-GitHubAction-Exporter:$VERSION
+    image: ghcr.io/StephenGoodall/OTLP-GitHubAction-Exporter:$VERSION

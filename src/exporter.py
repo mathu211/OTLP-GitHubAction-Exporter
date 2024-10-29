@@ -17,13 +17,14 @@ check_env_vars()
 
 # Configure env variables
 ACTION_TOKEN = os.getenv('ACTION_TOKEN')
-DYNATRACE_API_TOKEN = os.getenv('DYNATRACE_API_TOKEN')
-DYNATRACE_TENANT_ID = os.getenv('DYNATRACE_TENANT_ID')
+
 OTEL_EXPORTER_OTEL_ENDPOINT = os.getenv('OTEL_EXPORTER_OTEL_ENDPOINT')
-HEADERS_OVERRIDE = os.getenv('HEADERS_OVERRIDE')
+OTLP_PROTOCOL = os.getenv('OTLP_PROTOCOL')
+OTEL_EXPORTER_OTLP_HEADERS = os.getenv('OTEL_EXPORTER_OTLP_HEADERS')
 
 WORKFLOW_RUN_ID = os.getenv('WORKFLOW_RUN_ID')
 WORKFLOW_RUN_NAME=os.getenv('WORKFLOW_RUN_NAME')
+
 GITHUB_API_URL=os.getenv('GITHUB_API_URL')
 GITHUB_REPOSITORY_NAME=os.getenv('GITHUB_REPOSITORY')
 GITHUB_REPOSITORY_OWNER=os.getenv('GITHUB_REPOSITORY_OWNER')
@@ -38,19 +39,17 @@ if "GITHUB_DEBUG" in os.environ and os.getenv('GITHUB_DEBUG').lower() == "true":
 else:
     pass
 
-if OTEL_EXPORTER_OTEL_ENDPOINT in (None, ''):
-    OTEL_EXPORTER_OTEL_ENDPOINT = f"https://{DYNATRACE_TENANT_ID}.live.dynatrace.com/api/v2/otlp/"
-
+if OTLP_PROTOCOL in (None, ''):
+    OTLP_PROTOCOL = "HTTP"
+else:
+    OTLP_PROTOCOL = OTLP_PROTOCOL.upper()
 
 # Build Headers for request
 headers = {}
-if HEADERS_OVERRIDE in (None, ""):
-    headers = {"Authorization": f"Api-Token {DYNATRACE_API_TOKEN}"}
-else:
-    HEADERS_SPLIT = HEADERS_OVERRIDE.split(",")
-    for header in HEADERS_SPLIT:
-        header_obj = header.split("=")
-        headers[header_obj[0].strip()] = header_obj[1]
+HEADERS_SPLIT = OTEL_EXPORTER_OTLP_HEADERS.split(",")
+for header in HEADERS_SPLIT:
+    header_obj = header.split("=")
+    headers[header_obj[0].strip()] = header_obj[1]
 
 
 # Github API client
@@ -150,11 +149,11 @@ for job in job_lst:
                         pass
                 resource_log = Resource(attributes=resource_attributes)
                 
-                step_tracer = otel_tracer(OTEL_EXPORTER_OTEL_ENDPOINT, headers, resource_log, "step_tracer")
+                step_tracer = otel_tracer(OTEL_EXPORTER_OTEL_ENDPOINT, headers, resource_log, "step_tracer", OTLP_PROTOCOL)
                 
                 resource_attributes.update(create_otel_attributes(parse_attributes(step,"","step"),GITHUB_REPOSITORY_NAME))
                 resource_log = Resource(attributes=resource_attributes)
-                job_logger = otel_logger(OTEL_EXPORTER_OTEL_ENDPOINT,headers,resource_log, "job_logger")
+                job_logger = otel_logger(OTEL_EXPORTER_OTEL_ENDPOINT,headers,resource_log, "job_logger", OTLP_PROTOCOL)
 
                 if step['conclusion'] == 'skipped' or step['conclusion'] == 'cancelled':
                     if index >= 1:  
