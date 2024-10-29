@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.0.1](https://github.com/StephenGoodall/OTLP-GitHubAction-Exporter/compare/v3.0.0...v3.0.1) (2024-10-29)
+
+
+### Bug Fixes
+
+* Correction to variable name ([bb2857d](https://github.com/StephenGoodall/OTLP-GitHubAction-Exporter/commit/bb2857dc8f35ebcdc9c4a944396beecebcbb7e5d))
+
 ## [3.0.0](https://github.com/StephenGoodall/OTLP-GitHubAction-Exporter/compare/v2.0.3...v3.0.0) (2024-10-29)
 
 
