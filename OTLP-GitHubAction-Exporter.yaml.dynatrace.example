@@ -10,11 +10,11 @@ permissions: read-all
 env:
   ACTION_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   OTEL_EXPORTER_OTEL_ENDPOINT: https://abc12345.live.dynatrace.com/api/v2/otlp/
-  OTLP_PROTOCOL: HTTP # (Optional [HTTP/GRPC] - default is HTTP)
+  OTLP_PROTOCOL: HTTP
   WORKFLOW_RUN_ID: ${{ github.event.workflow_run.id }}
   WORKFLOW_RUN_NAME: ${{ github.event.workflow_run.name }}
   OTEL_EXPORTER_OTLP_HEADERS: Authorization=Api-Token ${{ secrets.DYNATRACE_OTEL_API_TOKEN }}
-  GITHUB_DEBUG: false (Optional [true/false] - default is false)
+  GITHUB_DEBUG: false
 
 jobs:
 
