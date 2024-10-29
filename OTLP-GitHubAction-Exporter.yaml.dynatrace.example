@@ -26,4 +26,4 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Run Dynatrace GitHubAction Exporter
-        uses: StephenGoodall/Dynatrace-GitHubAction-Exporter@v1
+        uses: StephenGoodall/Dynatrace-GitHubAction-Exporter@v2
