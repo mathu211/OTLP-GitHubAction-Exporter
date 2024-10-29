@@ -84,7 +84,7 @@ if GITHUB_CUSTOM_ATTS != "":
 
 # Set workflow level tracer and logger
 global_resource = Resource(attributes=global_attributes)
-tracer = otel_tracer(OTEL_EXPORTER_OTEL_ENDPOINT, headers, global_resource, "tracer")
+tracer = otel_tracer(OTEL_EXPORTER_OTEL_ENDPOINT, headers, global_resource, "tracer", OTLP_PROTOCOL)
 
 
 # Ensure we don't export data for Dynatrace_OTel_GitHubAction exporter
