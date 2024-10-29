@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.0.3](https://github.com/StephenGoodall/OTLP-GitHubAction-Exporter/compare/v2.0.2...v2.0.3) (2024-10-29)
+
+
+### Bug Fixes
+
+* Add in protocol to otel_tracer creation ([b947d31](https://github.com/StephenGoodall/OTLP-GitHubAction-Exporter/commit/b947d3116aca05c0644d545cc99a02cca416cc02))
+* Fix to OTLP endpoints ([b8212e4](https://github.com/StephenGoodall/OTLP-GitHubAction-Exporter/commit/b8212e42288cad51aa5226f32a85dac4b4bfe677))
+
 ## [2.0.2](https://github.com/StephenGoodall/OTLP-GitHubAction-Exporter/compare/v2.0.1...v2.0.2) (2024-10-29)
 
 
