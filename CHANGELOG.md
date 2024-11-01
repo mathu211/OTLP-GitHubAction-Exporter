@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.1.0](https://github.com/StephenGoodall/OTLP-GitHubAction-Exporter/compare/v3.0.2...v3.1.0) (2024-11-01)
+
+
+### Features
+
+* Add basic metric for Workflow Jobs counter ([0b48ac0](https://github.com/StephenGoodall/OTLP-GitHubAction-Exporter/commit/0b48ac094342e6e689b2087e93dd68234b4c2116))
+
 ## [3.0.2](https://github.com/StephenGoodall/OTLP-GitHubAction-Exporter/compare/v3.0.1...v3.0.2) (2024-10-29)
 
 
