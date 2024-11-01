@@ -98,7 +98,7 @@ if len(job_lst) == 0:
     print("No data to export, assuming this github action workflow job is a Dynatrace_OTel_GitHubAction exporter")
     exit(0)
 
-job_counter = meter.create_observable_counter(name="github.workflow.overall.job_count", description="Total Number of Jobs in the Workflow Run")
+job_counter = meter.create_counter(name="github.workflow.overall.job_count", description="Total Number of Jobs in the Workflow Run")
 job_counter.add(len(job_lst))
 
 successful_job_counter = meter.create_counter(name="github.workflow.successful.job_count", description="Number of Successful Jobs in the Workflow Run")
