@@ -35,11 +35,11 @@ def getSpanExporter(endpoint, headers, protocol):
 def getMetricExporter(endpoint, headers, protocol):
      match protocol:
         case "HTTP":
-             return HTTPOTLPMetricExporter(endpoint=endpoint, headers=headers, preferred_aggregation= AggregationTemporality.DELTA)
+             return HTTPOTLPMetricExporter(endpoint=endpoint, headers=headers, preferred_aggregation={AggregationTemporality.DELTA})
         case "GRPC":
-             return GRPCOTLPMetricExporter(endpoint=endpoint, headers=headers, preferred_aggregation= AggregationTemporality.DELTA)
+             return GRPCOTLPMetricExporter(endpoint=endpoint, headers=headers, preferred_aggregation={AggregationTemporality.DELTA})
         case _:
-             return HTTPOTLPMetricExporter(endpoint=endpoint, headers=headers, preferred_aggregation= AggregationTemporality.DELTA)
+             return HTTPOTLPMetricExporter(endpoint=endpoint, headers=headers, preferred_aggregation={AggregationTemporality.DELTA})
 
 def create_otel_attributes(atts, GITHUB_SERVICE_NAME):
     attributes={SERVICE_NAME: GITHUB_SERVICE_NAME}
