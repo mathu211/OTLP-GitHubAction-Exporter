@@ -85,7 +85,7 @@ if GITHUB_CUSTOM_ATTS != "":
 # Set workflow level tracer. meter and logger
 global_resource = Resource(attributes=global_attributes)
 tracer = otel_tracer(OTEL_EXPORTER_OTLP_ENDPOINT, headers, global_resource, "tracer", OTLP_PROTOCOL)
-meter = otel_meter(OTEL_EXPORTER_OTLP_ENDPOINT, headers, global_resource, "meter", OTLP_PROTOCOL)
+#meter = otel_meter(OTEL_EXPORTER_OTLP_ENDPOINT, headers, global_resource, "meter", OTLP_PROTOCOL)
 
 # Ensure we don't export data for Dynatrace_OTel_GitHubAction exporter
 workflow_run = json.loads(get_workflow_run_jobs_by_run_id)
@@ -98,11 +98,11 @@ if len(job_lst) == 0:
     print("No data to export, assuming this github action workflow job is a Dynatrace_OTel_GitHubAction exporter")
     exit(0)
 
-job_counter = meter.create_counter(name="github.workflow.overall.job_count", description="Total Number of Jobs in the Workflow Run")
-job_counter.add(len(job_lst))
+#job_counter = meter.create_counter(name="github.workflow.overall.job_count", description="Total Number of Jobs in the Workflow Run")
+#job_counter.add(len(job_lst))
 
-successful_job_counter = meter.create_counter(name="github.workflow.successful.job_count", description="Number of Successful Jobs in the Workflow Run")
-failed_job_counter = meter.create_counter(name="github.workflow.failed.job_count", description="Number of Failed Jobs in the Workflow Run")
+#successful_job_counter = meter.create_counter(name="github.workflow.successful.job_count", description="Number of Successful Jobs in the Workflow Run")
+#failed_job_counter = meter.create_counter(name="github.workflow.failed.job_count", description="Number of Failed Jobs in the Workflow Run")
 
 
 # Trace parent
@@ -142,10 +142,10 @@ for job in job_lst:
         p_sub_context = trace.set_span_in_context(child_0)
 
         # Update Job Metrics
-        if job['conclusion'] == 'success':
-            successful_job_counter.add(1)
-        else:
-            failed_job_counter.add(1)
+        #if job['conclusion'] == 'success':
+        #    successful_job_counter.add(1)
+        #else:
+        #    failed_job_counter.add(1)
 
         # Steps trace span
         for index,step in enumerate(job['steps']):
