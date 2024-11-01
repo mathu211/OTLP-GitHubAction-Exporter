@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.1.1](https://github.com/StephenGoodall/OTLP-GitHubAction-Exporter/compare/v3.1.0...v3.1.1) (2024-11-01)
+
+
+### Bug Fixes
+
+* Update code to use standard counter for job counter ([5150caf](https://github.com/StephenGoodall/OTLP-GitHubAction-Exporter/commit/5150caf21cee898e8eaaee83e3b2186ca55f9b86))
+
 ## [3.1.0](https://github.com/StephenGoodall/OTLP-GitHubAction-Exporter/compare/v3.0.2...v3.1.0) (2024-11-01)
 
 
