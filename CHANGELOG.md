@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.1.4](https://github.com/StephenGoodall/OTLP-GitHubAction-Exporter/compare/v3.1.3...v3.1.4) (2024-11-01)
+
+
+### Bug Fixes
+
+* revert metric changes ([fcec6d3](https://github.com/StephenGoodall/OTLP-GitHubAction-Exporter/commit/fcec6d341804c83528b1ed17c49c39ad0cf7d601))
+
 ## [3.1.3](https://github.com/StephenGoodall/OTLP-GitHubAction-Exporter/compare/v3.1.2...v3.1.3) (2024-11-01)
 
 
