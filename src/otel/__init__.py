@@ -13,8 +13,7 @@ from opentelemetry.sdk.trace.export import BatchSpanProcessor
 from opentelemetry.sdk._logs import LoggerProvider, LoggingHandler
 from opentelemetry.sdk._logs.export import BatchLogRecordProcessor
 from opentelemetry.sdk.metrics import MeterProvider
-from opentelemetry.sdk.metrics.export import PeriodicExportingMetricReader
-
+from opentelemetry.sdk.metrics.export import PeriodicExportingMetricReader, AggregationTemporality
 def getLogExporter(endpoint, headers, protocol):
      match protocol:
         case "HTTP":
@@ -36,11 +35,11 @@ def getSpanExporter(endpoint, headers, protocol):
 def getMetricExporter(endpoint, headers, protocol):
      match protocol:
         case "HTTP":
-             return HTTPOTLPMetricExporter(endpoint=endpoint, headers=headers)
+             return HTTPOTLPMetricExporter(endpoint=endpoint, headers=headers, preferred_aggregation= AggregationTemporality.DELTA)
         case "GRPC":
-             return GRPCOTLPMetricExporter(endpoint=endpoint, headers=headers)
+             return GRPCOTLPMetricExporter(endpoint=endpoint, headers=headers, preferred_aggregation= AggregationTemporality.DELTA)
         case _:
-             return HTTPOTLPMetricExporter(endpoint=endpoint, headers=headers)
+             return HTTPOTLPMetricExporter(endpoint=endpoint, headers=headers, preferred_aggregation= AggregationTemporality.DELTA)
 
 def create_otel_attributes(atts, GITHUB_SERVICE_NAME):
     attributes={SERVICE_NAME: GITHUB_SERVICE_NAME}
