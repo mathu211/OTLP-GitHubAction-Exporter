@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.1.3](https://github.com/StephenGoodall/OTLP-GitHubAction-Exporter/compare/v3.1.2...v3.1.3) (2024-11-01)
+
+
+### Bug Fixes
+
+* Use iterable for Aggregation preference ([2e69878](https://github.com/StephenGoodall/OTLP-GitHubAction-Exporter/commit/2e6987897abd7272b25e8abbb7492dd961bd9c4c))
+
 ## [3.1.2](https://github.com/StephenGoodall/OTLP-GitHubAction-Exporter/compare/v3.1.1...v3.1.2) (2024-11-01)
 
 
