@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.1.2](https://github.com/StephenGoodall/OTLP-GitHubAction-Exporter/compare/v3.1.1...v3.1.2) (2024-11-01)
+
+
+### Bug Fixes
+
+* switch to DELTA as preferred aggregation - Dynatrace error caused by using CUMULATIVE ([c9fb855](https://github.com/StephenGoodall/OTLP-GitHubAction-Exporter/commit/c9fb855b4580b4debbb1304001600bce9d4d00a5))
+
 ## [3.1.1](https://github.com/StephenGoodall/OTLP-GitHubAction-Exporter/compare/v3.1.0...v3.1.1) (2024-11-01)
 
 
