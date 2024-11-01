@@ -7,7 +7,7 @@ from opentelemetry import trace
 from opentelemetry.instrumentation.logging import LoggingInstrumentor
 from opentelemetry.sdk.resources import SERVICE_NAME, Resource
 from opentelemetry.trace import Status, StatusCode
-from otel import otel_logger,otel_tracer,create_otel_attributes
+from otel import otel_logger,otel_tracer,otel_meter,create_otel_attributes
 import requests
 import zipfile
 import dateutil.parser as dp
@@ -82,10 +82,10 @@ if GITHUB_CUSTOM_ATTS != "":
         print("Error parsing GITHUB_CUSTOM_ATTS check your configuration, continuing without custom attributes")
         pass
 
-# Set workflow level tracer and logger
+# Set workflow level tracer. meter and logger
 global_resource = Resource(attributes=global_attributes)
 tracer = otel_tracer(OTEL_EXPORTER_OTLP_ENDPOINT, headers, global_resource, "tracer", OTLP_PROTOCOL)
-
+meter = otel_meter(OTEL_EXPORTER_OTLP_ENDPOINT, headers, global_resource, "meter", OTLP_PROTOCOL)
 
 # Ensure we don't export data for Dynatrace_OTel_GitHubAction exporter
 workflow_run = json.loads(get_workflow_run_jobs_by_run_id)
@@ -97,6 +97,13 @@ for job in workflow_run['jobs']:
 if len(job_lst) == 0:
     print("No data to export, assuming this github action workflow job is a Dynatrace_OTel_GitHubAction exporter")
     exit(0)
+
+job_counter = meter.create_observable_counter(name="github.workflow.overall.job_count", description="Total Number of Jobs in the Workflow Run")
+job_counter.add(len(job_lst))
+
+successful_job_counter = meter.create_counter(name="github.workflow.successful.job_count", description="Number of Successful Jobs in the Workflow Run")
+failed_job_counter = meter.create_counter(name="github.workflow.failed.job_count", description="Number of Failed Jobs in the Workflow Run")
+
 
 # Trace parent
 workflow_run_atts = json.loads(get_workflow_run_by_run_id)
@@ -133,6 +140,12 @@ for job in job_lst:
         child_0 = tracer.start_span(name=str(job['name']),context=pcontext,start_time=do_time(job['started_at']), kind=trace.SpanKind.CONSUMER)
         child_0.set_attributes(create_otel_attributes(parse_attributes(job,"steps","job"),GITHUB_REPOSITORY_NAME))
         p_sub_context = trace.set_span_in_context(child_0)
+
+        # Update Job Metrics
+        if job['conclusion'] == 'success':
+            successful_job_counter.add(1)
+        else:
+            failed_job_counter.add(1)
 
         # Steps trace span
         for index,step in enumerate(job['steps']):

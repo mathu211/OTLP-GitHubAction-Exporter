@@ -20,7 +20,7 @@ Before setting up the integration, you will need a [Dynatrace API Token](https:/
 This will require the following permissions:
 - openTelemetryTrace.ingest
 - logs.ingest
-- metrics.ingest (This has not been implemented yet so the permission is optional)
+- metrics.ingest
 
 Also, refer to the Dynatrace Open Telemetry information page:
 [Using OpenTelemetry with Dynatrace](https://docs.dynatrace.com/docs/get-started/opentelemetry)
