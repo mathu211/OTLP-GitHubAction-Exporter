@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.2.0](https://github.com/StephenGoodall/OTLP-GitHubAction-Exporter/compare/v3.1.4...v3.2.0) (2024-11-13)
+
+
+### Features
+
+* introduce opentelemetry semconv fields, re-attempt metrics and fix duration of workflow ([7cda434](https://github.com/StephenGoodall/OTLP-GitHubAction-Exporter/commit/7cda434b00937a2339f4d4d57f1a2d90bcff80e9))
+
 ## [3.1.4](https://github.com/StephenGoodall/OTLP-GitHubAction-Exporter/compare/v3.1.3...v3.1.4) (2024-11-01)
 
 
