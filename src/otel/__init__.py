@@ -12,8 +12,31 @@ from opentelemetry.sdk.trace import TracerProvider
 from opentelemetry.sdk.trace.export import BatchSpanProcessor
 from opentelemetry.sdk._logs import LoggerProvider, LoggingHandler
 from opentelemetry.sdk._logs.export import BatchLogRecordProcessor
-from opentelemetry.sdk.metrics import MeterProvider
-from opentelemetry.sdk.metrics.export import PeriodicExportingMetricReader, AggregationTemporality
+from opentelemetry.sdk.metrics import (
+    Counter,
+    Histogram,
+    MeterProvider,
+    ObservableCounter,
+    ObservableGauge,
+    ObservableUpDownCounter,
+    UpDownCounter,
+)
+from opentelemetry.sdk.metrics.export import (
+    AggregationTemporality,
+    PeriodicExportingMetricReader,
+)
+
+
+deltaTemporality = {
+    Counter: AggregationTemporality.DELTA,
+    UpDownCounter: AggregationTemporality.CUMULATIVE,
+    Histogram: AggregationTemporality.DELTA,
+    ObservableCounter: AggregationTemporality.DELTA,
+    ObservableUpDownCounter: AggregationTemporality.CUMULATIVE,
+    ObservableGauge: AggregationTemporality.CUMULATIVE,
+}
+
+
 def getLogExporter(endpoint, headers, protocol):
      match protocol:
         case "HTTP":
@@ -35,11 +58,11 @@ def getSpanExporter(endpoint, headers, protocol):
 def getMetricExporter(endpoint, headers, protocol):
      match protocol:
         case "HTTP":
-             return HTTPOTLPMetricExporter(endpoint=endpoint, headers=headers, preferred_aggregation={AggregationTemporality.DELTA})
+             return HTTPOTLPMetricExporter(endpoint=endpoint, headers=headers, preferred_temporality=deltaTemporality)
         case "GRPC":
-             return GRPCOTLPMetricExporter(endpoint=endpoint, headers=headers, preferred_aggregation={AggregationTemporality.DELTA})
+             return GRPCOTLPMetricExporter(endpoint=endpoint, headers=headers, preferred_temporality=deltaTemporality)
         case _:
-             return HTTPOTLPMetricExporter(endpoint=endpoint, headers=headers, preferred_aggregation={AggregationTemporality.DELTA})
+             return HTTPOTLPMetricExporter(endpoint=endpoint, headers=headers, preferred_temporality=deltaTemporality)
 
 def create_otel_attributes(atts, GITHUB_SERVICE_NAME):
     attributes={SERVICE_NAME: GITHUB_SERVICE_NAME}

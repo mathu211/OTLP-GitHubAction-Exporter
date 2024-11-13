@@ -3,6 +3,7 @@ from custom_parser import do_time,do_fastcore_decode,parse_attributes,check_env_
 import json
 import logging
 import os
+import opentelemetry.semconv._incubating.attributes.cicd_attributes as cicd_semconv
 from opentelemetry import trace
 from opentelemetry.instrumentation.logging import LoggingInstrumentor
 from opentelemetry.sdk.resources import SERVICE_NAME, Resource
@@ -85,7 +86,7 @@ if GITHUB_CUSTOM_ATTS != "":
 # Set workflow level tracer. meter and logger
 global_resource = Resource(attributes=global_attributes)
 tracer = otel_tracer(OTEL_EXPORTER_OTLP_ENDPOINT, headers, global_resource, "tracer", OTLP_PROTOCOL)
-#meter = otel_meter(OTEL_EXPORTER_OTLP_ENDPOINT, headers, global_resource, "meter", OTLP_PROTOCOL)
+meter = otel_meter(OTEL_EXPORTER_OTLP_ENDPOINT, headers, global_resource, "meter", OTLP_PROTOCOL)
 
 # Ensure we don't export data for Dynatrace_OTel_GitHubAction exporter
 workflow_run = json.loads(get_workflow_run_jobs_by_run_id)
@@ -98,16 +99,18 @@ if len(job_lst) == 0:
     print("No data to export, assuming this github action workflow job is a Dynatrace_OTel_GitHubAction exporter")
     exit(0)
 
-#job_counter = meter.create_counter(name="github.workflow.overall.job_count", description="Total Number of Jobs in the Workflow Run")
-#job_counter.add(len(job_lst))
+job_counter = meter.create_counter(name="github.workflow.overall.job_count", description="Total Number of Jobs in the Workflow Run")
+job_counter.add(len(job_lst))
 
-#successful_job_counter = meter.create_counter(name="github.workflow.successful.job_count", description="Number of Successful Jobs in the Workflow Run")
-#failed_job_counter = meter.create_counter(name="github.workflow.failed.job_count", description="Number of Failed Jobs in the Workflow Run")
+successful_job_counter = meter.create_counter(name="github.workflow.successful.job_count", description="Number of Successful Jobs in the Workflow Run")
+failed_job_counter = meter.create_counter(name="github.workflow.failed.job_count", description="Number of Failed Jobs in the Workflow Run")
 
 
 # Trace parent
 workflow_run_atts = json.loads(get_workflow_run_by_run_id)
 atts=parse_attributes(workflow_run_atts,"","workflow")
+atts[cicd_semconv.CICD_PIPELINE_NAME] = str(WORKFLOW_RUN_NAME)
+atts[cicd_semconv.CICD_PIPELINE_RUN_ID] = WORKFLOW_RUN_ID
 print("Processing Workflow ->",WORKFLOW_RUN_NAME,"run id ->",WORKFLOW_RUN_ID)
 p_parent = tracer.start_span(name=str(WORKFLOW_RUN_NAME),attributes=atts,start_time=do_time(workflow_run_atts['run_started_at']),kind=trace.SpanKind.SERVER)
 
@@ -137,15 +140,18 @@ pcontext = trace.set_span_in_context(p_parent)
 for job in job_lst:
     try:
         print("Processing job ->",job['name'])
-        child_0 = tracer.start_span(name=str(job['name']),context=pcontext,start_time=do_time(job['started_at']), kind=trace.SpanKind.CONSUMER)
-        child_0.set_attributes(create_otel_attributes(parse_attributes(job,"steps","job"),GITHUB_REPOSITORY_NAME))
+        child_0_attributes = create_otel_attributes(parse_attributes(job,"steps","job"),GITHUB_REPOSITORY_NAME)
+        child_0_attributes[cicd_semconv.CICD_PIPELINE_TASK_NAME] = job['name']
+        child_0_attributes[cicd_semconv.CICD_PIPELINE_TASK_RUN_ID] = job['run_id']
+        child_0_attributes[cicd_semconv.CICD_PIPELINE_TASK_RUN_URL_FULL] = job['html_url']
+        child_0 = tracer.start_span(name=str(job['name']), attributes=child_0_attributes, context=pcontext,start_time=do_time(job['started_at']), kind=trace.SpanKind.CONSUMER)
         p_sub_context = trace.set_span_in_context(child_0)
 
         # Update Job Metrics
-        #if job['conclusion'] == 'success':
-        #    successful_job_counter.add(1)
-        #else:
-        #    failed_job_counter.add(1)
+        if job['conclusion'] == 'success':
+            successful_job_counter.add(1)
+        else:
+            failed_job_counter.add(1)
 
         # Steps trace span
         for index,step in enumerate(job['steps']):
@@ -164,6 +170,7 @@ for job in job_lst:
                 
                 step_tracer = otel_tracer(OTEL_EXPORTER_OTLP_ENDPOINT, headers, resource_log, "step_tracer", OTLP_PROTOCOL)
                 
+                resource_attributes[cicd_semconv.CICD_PIPELINE_TASK_NAME.replace("pipeline.task", "pipeline.task.step")] = step['name']
                 resource_attributes.update(create_otel_attributes(parse_attributes(step,"","step"),GITHUB_REPOSITORY_NAME))
                 resource_log = Resource(attributes=resource_attributes)
                 job_logger = otel_logger(OTEL_EXPORTER_OTLP_ENDPOINT,headers,resource_log, "job_logger", OTLP_PROTOCOL)
@@ -177,8 +184,9 @@ for job in job_lst:
                 else:
                     step_started_at=step['started_at']            
                         
-                child_1 = step_tracer.start_span(name=str(step['name']),start_time=do_time(step_started_at),context=p_sub_context,kind=trace.SpanKind.CONSUMER)
-                child_1.set_attributes(create_otel_attributes(parse_attributes(step,"","job"),GITHUB_REPOSITORY_NAME))
+                child_1_attributes = create_otel_attributes(parse_attributes(step,"","job"),GITHUB_REPOSITORY_NAME)
+                child_1_attributes[cicd_semconv.CICD_PIPELINE_TASK_NAME.replace("pipeline.task", "pipeline.task.step")] = step['name']
+                child_1 = step_tracer.start_span(name=str(step['name']), attributes= child_1_attributes, start_time=do_time(step_started_at),context=p_sub_context,kind=trace.SpanKind.CONSUMER)
                 with trace.use_span(child_1, end_on_exit=False):
                     # Parse logs
                     try:
@@ -237,11 +245,11 @@ for job in job_lst:
                 print("Unable to process step ->",step['name'],"<- due to error",e)
                 
         child_0.end(end_time=do_time(job['completed_at']))
-        workflow_run_finish_time=do_time(job['completed_at'])
         print("Finished processing job ->",job['name'])
     except Exception as e:
         print("Unable to process job ->",job['name'],"<- due to error",e)
 
+workflow_run_finish_time=do_time(workflow_run_atts['updated_at'])
 p_parent.end(end_time=workflow_run_finish_time)
 print("Finished processing Workflow ->",WORKFLOW_RUN_NAME,"run id ->",WORKFLOW_RUN_ID)
 print("All data exported to Dynatrace")
