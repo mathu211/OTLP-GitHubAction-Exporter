@@ -124,7 +124,7 @@ p_parent = tracer.start_span(name=str(WORKFLOW_RUN_NAME),attributes=atts,start_t
 # Download logs
 # Have to use python requests due to known issue with ghapi -> https://github.com/fastai/ghapi/issues/119
 req_headers = {
-    'User-Agent': 'Dynatrace_OTel_GitHubAction',
+    'User-Agent': 'OTLP_GitHubAction_Exporter',
     'Accept': 'application/vnd.github+json',
     'Authorization': f"Bearer {ACTION_TOKEN}",
     'X-GitHub-Api-Version': '2022-11-28'
@@ -259,4 +259,4 @@ for job in job_lst:
 workflow_run_finish_time=do_time(workflow_run_atts['updated_at'])
 p_parent.end(end_time=workflow_run_finish_time)
 print("Finished processing Workflow ->",WORKFLOW_RUN_NAME,"run id ->",WORKFLOW_RUN_ID)
-print("All data exported to Dynatrace")
+print("All data exported to OTLP")
