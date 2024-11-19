@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.2.1](https://github.com/StephenGoodall/OTLP-GitHubAction-Exporter/compare/v3.2.0...v3.2.1) (2024-11-19)
+
+
+### Bug Fixes
+
+* Fix to GRPC Exporter and update docs ([b9a1384](https://github.com/StephenGoodall/OTLP-GitHubAction-Exporter/commit/b9a13846063074e1cd89012644cf1b4fb59f3cd5))
+
 ## [3.2.0](https://github.com/StephenGoodall/OTLP-GitHubAction-Exporter/compare/v3.1.4...v3.2.0) (2024-11-13)
 
 
