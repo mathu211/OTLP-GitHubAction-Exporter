@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.2.2](https://github.com/StephenGoodall/OTLP-GitHubAction-Exporter/compare/v3.2.1...v3.2.2) (2024-11-19)
+
+
+### Bug Fixes
+
+* update example and add OTLP endpoint slash if missing ([8833aa9](https://github.com/StephenGoodall/OTLP-GitHubAction-Exporter/commit/8833aa97e1d0797d751e392efc4c44d45a313fe2))
+
 ## [3.2.1](https://github.com/StephenGoodall/OTLP-GitHubAction-Exporter/compare/v3.2.0...v3.2.1) (2024-11-19)
 
 
