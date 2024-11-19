@@ -51,7 +51,7 @@ def getSpanExporter(endpoint, headers, protocol):
         case "HTTP":
              return HTTPOTLPSpanExporter(endpoint=endpoint, headers=headers)
         case "GRPC":
-             return GRPCOTLPSpanExporter(endpoint=endpoint, eaders=headers)
+             return GRPCOTLPSpanExporter(endpoint=endpoint, headers=headers)
         case _:
              return HTTPOTLPSpanExporter(endpoint=endpoint, headers=headers)
 

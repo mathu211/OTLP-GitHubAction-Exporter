@@ -26,4 +26,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Run Dynatrace GitHubAction Exporter
+        env:
+          - EXPORTER_JOB_NAME: ${{ github.jobs[github.job].name }}
         uses: StephenGoodall/Dynatrace-GitHubAction-Exporter@v3

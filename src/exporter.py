@@ -30,6 +30,8 @@ GITHUB_API_URL=os.getenv('GITHUB_API_URL')
 GITHUB_REPOSITORY_NAME=os.getenv('GITHUB_REPOSITORY')
 GITHUB_REPOSITORY_OWNER=os.getenv('GITHUB_REPOSITORY_OWNER')
 
+EXPORTER_JOB_NAME=os.getenv('EXPORTER_JOB_NAME').lower()
+
 # Check if debug is set
 if "GITHUB_DEBUG" in os.environ and os.getenv('GITHUB_DEBUG').lower() == "true":
     print("Running on DEBUG mode")
@@ -88,15 +90,15 @@ global_resource = Resource(attributes=global_attributes)
 tracer = otel_tracer(OTEL_EXPORTER_OTLP_ENDPOINT, headers, global_resource, "tracer", OTLP_PROTOCOL)
 meter = otel_meter(OTEL_EXPORTER_OTLP_ENDPOINT, headers, global_resource, "meter", OTLP_PROTOCOL)
 
-# Ensure we don't export data for Dynatrace_OTel_GitHubAction exporter
+# Ensure we don't export data for the OTLP_GitHubAction-Exporter job
 workflow_run = json.loads(get_workflow_run_jobs_by_run_id)
 job_lst=[]
 for job in workflow_run['jobs']:
-    if str(job['name']).lower() not in ["dynatrace_otel_githubaction"]:
+    if str(job['name']).lower() not in [EXPORTER_JOB_NAME]:
         job_lst.append(job)
 
 if len(job_lst) == 0:
-    print("No data to export, assuming this github action workflow job is a Dynatrace_OTel_GitHubAction exporter")
+    print("No data to export, assuming this github action workflow job is for the OTLP-GitHubAction-Exporter")
     exit(0)
 
 job_counter = meter.create_counter(name="github.workflow.overall.job_count", description="Total Number of Jobs in the Workflow Run")

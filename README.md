@@ -55,7 +55,7 @@ This means it will run whenever any of your other workflows complete - which mea
 **WORKFLOW_RUN_NAME** - This contains the Workflow Run Name for the workflow that triggered this Workflow (ensure it is using the github.event context)
 
 ## Optional Configuration
-**OTLP_PROTOCOL** - This determines the protocol to use for the Exporters (HTTP or gRPC) - Defaults to HTTP
+**OTLP_PROTOCOL** - This determines the protocol to use for the Exporters (HTTP or GRPC) - Defaults to HTTP
 
 **OTEL_EXPORTER_OTLP_HEADERS** - Technically optional, however a lot of receivers will need this for the Authorization. This can be used to set the Headers for the OTLP Exporter (Authorization: Api-Token dtc.01......). Enter these in a commas separated, key=value format. See [OpenTelemetry Docs](https://opentelemetry.io/docs/languages/sdk-configuration/otlp-exporter/#otel_exporter_otlp_headers)
 
