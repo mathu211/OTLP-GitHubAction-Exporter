@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.2.3](https://github.com/StephenGoodall/OTLP-GitHubAction-Exporter/compare/v3.2.2...v3.2.3) (2024-11-19)
+
+
+### Bug Fixes
+
+* Update ReadMe and add NewRelic example ([5d5695a](https://github.com/StephenGoodall/OTLP-GitHubAction-Exporter/commit/5d5695adbf08279456dc281b6f94ea594f1f3ff3))
+
 ## [3.2.2](https://github.com/StephenGoodall/OTLP-GitHubAction-Exporter/compare/v3.2.1...v3.2.2) (2024-11-19)
 
 
