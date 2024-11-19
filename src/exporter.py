@@ -20,6 +20,11 @@ check_env_vars()
 ACTION_TOKEN = os.getenv('ACTION_TOKEN')
 
 OTEL_EXPORTER_OTLP_ENDPOINT = os.getenv('OTEL_EXPORTER_OTLP_ENDPOINT')
+
+# Add slash if missing from endpoint
+if not OTEL_EXPORTER_OTLP_ENDPOINT.endswith("/"):
+    OTEL_EXPORTER_OTLP_ENDPOINT = f"{OTEL_EXPORTER_OTLP_ENDPOINT}/"
+
 OTLP_PROTOCOL = os.getenv('OTLP_PROTOCOL')
 OTEL_EXPORTER_OTLP_HEADERS = os.getenv('OTEL_EXPORTER_OTLP_HEADERS')
 
@@ -30,7 +35,7 @@ GITHUB_API_URL=os.getenv('GITHUB_API_URL')
 GITHUB_REPOSITORY_NAME=os.getenv('GITHUB_REPOSITORY')
 GITHUB_REPOSITORY_OWNER=os.getenv('GITHUB_REPOSITORY_OWNER')
 
-EXPORTER_JOB_NAME=os.getenv('EXPORTER_JOB_NAME').lower()
+EXPORTER_JOB_NAME=os.getenv('GITHUB_JOB').lower()
 
 # Check if debug is set
 if "GITHUB_DEBUG" in os.environ and os.getenv('GITHUB_DEBUG').lower() == "true":

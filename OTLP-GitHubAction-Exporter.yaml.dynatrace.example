@@ -18,14 +18,12 @@ env:
 
 jobs:
 
-  Dynatrace-GitHubAction-Exporter:
-    name: Dynatrace GitHubAction Exporter
+  OTLP-GitHubAction-Exporter :
+    name: OTLP GitHubAction Exporter
     runs-on: ubuntu-latest
     if: ${{ always() }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Run Dynatrace GitHubAction Exporter
-        env:
-          - EXPORTER_JOB_NAME: ${{ github.jobs[github.job].name }}
-        uses: StephenGoodall/Dynatrace-GitHubAction-Exporter@v3
+      - name: Run OTLP GitHubAction Exporter
+        uses: StephenGoodall/OTLP-GitHubAction-Exporter@v3
