@@ -2,7 +2,7 @@
 <p float="left">
   <img src="images/opentelemetry-logo.png" alt="OpenTelemetry Logo" width="45" height="" style="background-color:white;">
 </p>
-A GitHub Action to export Workflow runs as OTel Traces, Metric and Logs via OTLP
+A GitHub Action to export Workflow runs as OTel Traces, Metric and Logs via OTLP.
 
 
 ## Monitoring Github Actions with OTLP
