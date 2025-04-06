@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.2.4](https://github.com/StephenGoodall/OTLP-GitHubAction-Exporter/compare/v3.2.3...v3.2.4) (2025-04-06)
+
+
+### Bug Fixes
+
+* Updating README to trigger a release PR ([1de8b17](https://github.com/StephenGoodall/OTLP-GitHubAction-Exporter/commit/1de8b17c46cb5bbb7b0abe0906bc24b0c15ba847))
+
 ## [3.2.3](https://github.com/StephenGoodall/OTLP-GitHubAction-Exporter/compare/v3.2.2...v3.2.3) (2024-11-19)
 
 
