@@ -54,11 +54,14 @@ else:
 
 # Build Headers for request
 headers = {}
-HEADERS_SPLIT = OTEL_EXPORTER_OTLP_HEADERS.split(",")
-for header in HEADERS_SPLIT:
-    header_obj = header.split("=")
-    headers[header_obj[0].strip()] = header_obj[1]
-
+if OTEL_EXPORTER_OTLP_HEADERS:
+    HEADERS_SPLIT = OTEL_EXPORTER_OTLP_HEADERS.split(",")
+    for header in HEADERS_SPLIT:
+        header_obj = header.split("=")
+        key = header_obj[0].strip()
+        value = header_obj[1].strip()
+        if key and value:
+            headers[key] = value
 
 # Github API client
 api = GhApi(owner=GITHUB_REPOSITORY_OWNER, repo=GITHUB_REPOSITORY_NAME.split('/')[1], token=str(ACTION_TOKEN))
