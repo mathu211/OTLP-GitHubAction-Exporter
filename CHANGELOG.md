@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.2.5](https://github.com/StephenGoodall/OTLP-GitHubAction-Exporter/compare/v3.2.4...v3.2.5) (2025-04-07)
+
+
+### Bug Fixes
+
+* Update action.yml ([8520772](https://github.com/StephenGoodall/OTLP-GitHubAction-Exporter/commit/8520772b75b9d65297fce1acec3b92a3053253e9))
+
 ## [3.2.4](https://github.com/StephenGoodall/OTLP-GitHubAction-Exporter/compare/v3.2.3...v3.2.4) (2025-04-06)
 
 
