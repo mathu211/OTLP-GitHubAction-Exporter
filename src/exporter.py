@@ -14,7 +14,7 @@ import zipfile
 import dateutil.parser as dp
 
 # Check if compulsory env variables are configured
-check_env_vars()
+#check_env_vars()
 
 # Configure env variables
 ACTION_TOKEN = os.getenv('ACTION_TOKEN')
