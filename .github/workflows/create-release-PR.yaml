@@ -13,7 +13,7 @@ jobs:
   create-release-pr:
     runs-on: ubuntu-latest
     steps:
-      - uses: mathu211/release-please-action@v4
+      - uses: mathu211/HelloWorld-Java-Springboot
         id: release
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
