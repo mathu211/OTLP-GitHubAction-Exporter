@@ -15,7 +15,7 @@ env:
   OTLP_PROTOCOL: GRPC
   WORKFLOW_RUN_ID: ${{ github.event.workflow_run.id }}
   WORKFLOW_RUN_NAME: ${{ github.event.workflow_run.name }}
-  OTEL_EXPORTER_OTLP_HEADERS: api-key=${{ NULL }}
+  OTEL_EXPORTER_OTLP_HEADERS: ""
   GITHUB_DEBUG: false
 
 #call java project
