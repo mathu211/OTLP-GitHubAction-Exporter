@@ -8,6 +8,16 @@ on:
 permissions:
   contents: write
   pull-requests: write
+
+env:
+  ACTION_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  OTEL_EXPORTER_OTLP_ENDPOINT: https://pocotelcollector.victorioushill-a78a0db8.westeurope.azurecontainerapps.io/v1/traces
+  OTLP_PROTOCOL: GRPC
+  WORKFLOW_RUN_ID: ${{ github.event.workflow_run.id }}
+  WORKFLOW_RUN_NAME: ${{ github.event.workflow_run.name }}
+  OTEL_EXPORTER_OTLP_HEADERS: api-key=${{ NULL }}
+  GITHUB_DEBUG: false
+
 #call java project
 jobs:
   create-release-pr:
