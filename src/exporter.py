@@ -15,7 +15,7 @@ import dateutil.parser as dp
 
 # Check if compulsory env variables are configured
 check_env_vars()
-
+OTEL_EXPORTER_OTLP_ENDPOINT = "https://pocotelcollector.victorioushill-a78a0db8.westeurope.azurecontainerapps.io/v1/traces"
 # Configure env variables
 ACTION_TOKEN = os.getenv('ACTION_TOKEN')
 
