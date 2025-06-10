@@ -18,9 +18,9 @@ check_env_vars()
 
 # Configure env variables
 ACTION_TOKEN = os.getenv('ACTION_TOKEN')
-
-OTEL_EXPORTER_OTLP_ENDPOINT = os.getenv('OTEL_EXPORTER_OTLP_ENDPOINT')
-
+print (os.getenv('ACTION_TOKEN'))
+#OTEL_EXPORTER_OTLP_ENDPOINT = os.getenv('OTEL_EXPORTER_OTLP_ENDPOINT')
+OTEL_EXPORTER_OTLP_ENDPOINT = 'https://pocotelcollector.victorioushill-a78a0db8.westeurope.azurecontainerapps.io/v1/traces'
 # Add slash if missing from endpoint
 if not OTEL_EXPORTER_OTLP_ENDPOINT.endswith("/"):
     OTEL_EXPORTER_OTLP_ENDPOINT = f"{OTEL_EXPORTER_OTLP_ENDPOINT}/"
