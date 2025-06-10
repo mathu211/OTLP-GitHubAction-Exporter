@@ -9,11 +9,11 @@ permissions: read-all
 
 env:
   ACTION_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  OTEL_EXPORTER_OTLP_ENDPOINT: https://otlp.nr-data.net:4318/
+  OTEL_EXPORTER_OTLP_ENDPOINT: https://pocotelcollector.victorioushill-a78a0db8.westeurope.azurecontainerapps.io/v1/traces
   OTLP_PROTOCOL: GRPC
   WORKFLOW_RUN_ID: ${{ github.event.workflow_run.id }}
   WORKFLOW_RUN_NAME: ${{ github.event.workflow_run.name }}
-  OTEL_EXPORTER_OTLP_HEADERS: api-key=${{ secrets.NEWRELIC_OTEL_API_KEY }}
+  OTEL_EXPORTER_OTLP_HEADERS: api-key=${{ NULL }}
   GITHUB_DEBUG: false
 
 jobs:

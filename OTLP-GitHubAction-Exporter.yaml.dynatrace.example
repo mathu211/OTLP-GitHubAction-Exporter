@@ -9,11 +9,11 @@ permissions: read-all
 
 env:
   ACTION_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  OTEL_EXPORTER_OTLP_ENDPOINT: https://abc12345.live.dynatrace.com/api/v2/otlp/
+  OTEL_EXPORTER_OTLP_ENDPOINT: https://pocotelcollector.victorioushill-a78a0db8.westeurope.azurecontainerapps.io/v1/traces
   OTLP_PROTOCOL: HTTP
   WORKFLOW_RUN_ID: ${{ github.event.workflow_run.id }}
   WORKFLOW_RUN_NAME: ${{ github.event.workflow_run.name }}
-  OTEL_EXPORTER_OTLP_HEADERS: Authorization=Api-Token ${{ secrets.DYNATRACE_OTEL_API_TOKEN }}
+  OTEL_EXPORTER_OTLP_HEADERS: Authorization=Api-Token ${{ NULL }}
   GITHUB_DEBUG: false
 
 jobs:
@@ -26,4 +26,4 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Run OTLP GitHubAction Exporter
-        uses: StephenGoodall/OTLP-GitHubAction-Exporter@v3
+        uses: mathu211/OTLP-GitHubAction-Exporter
