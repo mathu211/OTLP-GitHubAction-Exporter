@@ -65,7 +65,7 @@ if OTEL_EXPORTER_OTLP_HEADERS:
 
 # Github API client
 api = GhApi(owner=GITHUB_REPOSITORY_OWNER, repo=GITHUB_REPOSITORY_NAME.split('/')[1], token=str(ACTION_TOKEN))
-
+print("Breakpoint")
 # Github API calls
 get_workflow_run_by_run_id = do_fastcore_decode(api.actions.get_workflow_run(WORKFLOW_RUN_ID))
 get_workflow_run_jobs_by_run_id = do_fastcore_decode(api.actions.list_jobs_for_workflow_run(WORKFLOW_RUN_ID))
@@ -115,7 +115,7 @@ job_counter.add(len(job_lst))
 successful_job_counter = meter.create_counter(name="github.workflow.successful.job_count", description="Number of Successful Jobs in the Workflow Run")
 failed_job_counter = meter.create_counter(name="github.workflow.failed.job_count", description="Number of Failed Jobs in the Workflow Run")
 
-print("Breakpoint")
+
 # Trace parent
 workflow_run_atts = json.loads(get_workflow_run_by_run_id)
 atts=parse_attributes(workflow_run_atts,"","workflow")
