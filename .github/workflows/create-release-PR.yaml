@@ -32,7 +32,7 @@ jobs:
       - name: tag major and minor versions
         if: ${{ steps.release.outputs.release_created }}
         run: |
-          git config user.name github-actions[bot]
+          git config user.name mathu211
           git config user.email mathumitha211@gmail.com
           git remote add gh-token "https://${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git"
           git tag -d v${{ steps.release.outputs.major }} || true
