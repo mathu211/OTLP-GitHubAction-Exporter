@@ -155,10 +155,10 @@ for job in job_lst:
     try:
         print("Processing job ->",job['name'])
         if not isinstance(job, str):
-            job = json.loads(job)
-        result = parse_attributes(job, "steps", "job")
+            print("not a string, converting to string")
+            job_str = json.dumps(job)
+        result = parse_attributes(job_str, "steps", "job")
         print("parse_attributes result:", result, "type:", type(result))
-        print("parse_attributes output:", parse_attributes(job, "steps", "job"))
         child_0_attributes = create_otel_attributes(parse_attributes(job,"steps","job"),GITHUB_REPOSITORY_NAME)
         print("exception check")
         child_0_attributes[cicd_semconv.CICD_PIPELINE_TASK_NAME] = job['name']
