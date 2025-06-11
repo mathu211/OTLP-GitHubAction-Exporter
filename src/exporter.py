@@ -153,6 +153,7 @@ pcontext = trace.set_span_in_context(p_parent)
 for job in job_lst:
     try:
         print("Processing job ->",job['name'])
+        print("parse_attributes output:", parse_attributes(job, "steps", "job"))
         child_0_attributes = create_otel_attributes(parse_attributes(job,"steps","job"),GITHUB_REPOSITORY_NAME)
         print("exception check")
         child_0_attributes[cicd_semconv.CICD_PIPELINE_TASK_NAME] = job['name']
