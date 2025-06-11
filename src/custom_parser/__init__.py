@@ -65,11 +65,10 @@ def parse_attributes(obj,att_to_drop,otype):
                             if type(obj[attribute][sub_att]) is dict:                                
                                 for att in obj[attribute][sub_att]:                                                                  
                                     attribute_name = do_string(attribute)+"."+do_string(sub_att)+"."+do_string(att)                                    
-                                    if attribute_name not in attributes_to_drop:
-                                        print("confirmed")   
-                                        obj_atts[attribute_name]=str(obj[attribute][sub_att][att])
-                                        print("Check string")
-                                        if attribute_name.endswith("_at"):                                            
+                                    if attribute_name not in attributes_to_drop:                                         
+                                        obj_atts[attribute_name]=str(obj[attribute][sub_att][att])                                        
+                                        if attribute_name.endswith("_at"):        
+                                            print("confirmed")                                     
                                             if obj['conclusion'] == 'skipped' or obj['conclusion'] == 'cancelled':
                                                     print("Check string")
                                                     pass
