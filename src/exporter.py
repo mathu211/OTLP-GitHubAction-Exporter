@@ -102,12 +102,12 @@ meter = otel_meter(OTEL_EXPORTER_OTLP_ENDPOINT, headers, global_resource, "meter
 workflow_run = json.loads(get_workflow_run_jobs_by_run_id)
 job_lst=[]
 for job in workflow_run['jobs']:
-    if str(job['name']).lower() in [EXPORTER_JOB_NAME]:
+    if str(job['name']).lower() not in [EXPORTER_JOB_NAME]:
         job_lst.append(job)
 
-if len(job_lst) == 0:
-    print("No data to export, assuming this github action workflow job is for the OTLP-GitHubAction-Exporter")
-    exit(0)
+#if len(job_lst) == 0:
+#    print("No data to export, assuming this github action workflow job is for the OTLP-GitHubAction-Exporter")
+#    exit(0)
 
 job_counter = meter.create_counter(name="github.workflow.overall.job_count", description="Total Number of Jobs in the Workflow Run")
 job_counter.add(len(job_lst))
@@ -151,10 +151,7 @@ else:
 # Set Jobs tracer and logger
 pcontext = trace.set_span_in_context(p_parent)
 
-for j in job_lst:
-    job = list(j)
-    print('job: ', job)
-
+for job in job_lst:
     try:
         # print("01: Processing job ->", '\n',job['name'], '\n', type(job), '\n', type(job['name']))
         result = parse_attributes(job, "steps", "job")
