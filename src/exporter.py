@@ -141,8 +141,11 @@ r1=requests.get(logs_url,headers=req_headers)
 with open("log.zip",'wb') as output_file:
     output_file.write(r1.content)
 
-with zipfile.ZipFile("log.zip", 'r') as zip_ref:
-    zip_ref.extractall("./logs")
+if zipfile.is_zipfile("log.zip"):
+    with zipfile.ZipFile("log.zip", 'r') as zip_ref:
+        zip_ref.extractall("./logs")
+else:
+    print("The file 'log.zip' is not a valid zip archive. Skipping extraction.")
 
 # Jobs trace span
 # Set Jobs tracer and logger
