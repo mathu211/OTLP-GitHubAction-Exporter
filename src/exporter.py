@@ -151,12 +151,11 @@ else:
 # Set Jobs tracer and logger
 pcontext = trace.set_span_in_context(p_parent)
 
-for j in job_lst:
-    job = str(j)
-    
+for job in job_lst:
+    print('job: ', job)
     try:
         # print("01: Processing job ->", '\n',job['name'], '\n', type(job), '\n', type(job['name']))
-        result = parse_attributes(job, "steps", "job")
+        result = parse_attributes(list(job), "steps", "job")
         print("parse_attributes result:", result, "type:", type(result))
         child_0_attributes = create_otel_attributes(parse_attributes(job,"steps","job"),GITHUB_REPOSITORY_NAME)
         print("exception check")
