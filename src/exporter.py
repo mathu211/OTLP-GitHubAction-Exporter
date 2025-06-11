@@ -102,7 +102,7 @@ meter = otel_meter(OTEL_EXPORTER_OTLP_ENDPOINT, headers, global_resource, "meter
 workflow_run = json.loads(get_workflow_run_jobs_by_run_id)
 job_lst=[]
 for job in workflow_run['jobs']:
-    if str(job['name']).lower() not in [EXPORTER_JOB_NAME]:
+    if str(job['name']).lower() in [EXPORTER_JOB_NAME]:
         job_lst.append(job)
 
 if len(job_lst) == 0:
