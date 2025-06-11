@@ -159,7 +159,7 @@ for job in job_lst:
         child_0_attributes[cicd_semconv.CICD_PIPELINE_TASK_RUN_URL_FULL] = job['html_url']
         child_0 = tracer.start_span(name=str(job['name']), attributes=child_0_attributes, context=pcontext,start_time=do_time(job['started_at']), kind=trace.SpanKind.CONSUMER)
         p_sub_context = trace.set_span_in_context(child_0)
-
+        print("exception check")
         # Update Job Metrics
         if job['conclusion'] == 'success':
             successful_job_counter.add(1)
