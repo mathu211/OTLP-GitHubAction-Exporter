@@ -69,7 +69,7 @@ print("Breakpoint")
 # Github API calls
 get_workflow_run_by_run_id = do_fastcore_decode(api.actions.get_workflow_run(WORKFLOW_RUN_ID))
 get_workflow_run_jobs_by_run_id = do_fastcore_decode(api.actions.list_jobs_for_workflow_run(WORKFLOW_RUN_ID))
-print("Breakpoint1")
+print("Breakpoint1", get_workflow_run_jobs_by_run_id)
 # Set OTEL resources
 global_attributes={
     SERVICE_NAME: GITHUB_REPOSITORY_NAME,
