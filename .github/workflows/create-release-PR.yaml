@@ -23,7 +23,7 @@ jobs:
   create-release-pr:
     runs-on: ubuntu-latest
     steps:
-      - uses: mathu211/OTLP-GitHubAction-Exporter@main
+      - uses: mathu211/HelloWorld-Java-Springboot@master
         id: release
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
