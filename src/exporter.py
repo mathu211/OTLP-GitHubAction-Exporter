@@ -155,7 +155,7 @@ for job in job_lst:
     try:
         print("Processing job ->",job['name'])
         if not isinstance(job, str):
-            job = json.dumps(job)
+            job = json.loads(job)
         result = parse_attributes(job, "steps", "job")
         print("parse_attributes result:", result, "type:", type(result))
         print("parse_attributes output:", parse_attributes(job, "steps", "job"))
