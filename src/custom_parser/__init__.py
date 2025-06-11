@@ -48,8 +48,8 @@ def parse_attributes(obj,att_to_drop,otype):
     #     except:
     #         print("Unable to parse GITHUB_ATTRIBUTES_DROP, check your configuration")
     for attribute in list(obj):
-        print("Check string")
         attribute_name = str(attribute).lower()
+        print("Check string")
         if attribute_name.endswith("_at"):
             if obj['conclusion'] == 'skipped' or obj['conclusion'] == 'cancelled':
                 pass
