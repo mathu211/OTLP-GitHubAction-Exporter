@@ -64,7 +64,8 @@ def parse_attributes(obj,att_to_drop,otype):
                         if attribute_name not in attributes_to_drop:                           
                             if type(obj[attribute][sub_att]) is dict:
                                 print("Check string")
-                                for att in obj[attribute][sub_att]:                                    
+                                for att in obj[attribute][sub_att]:   
+                                    print("confirmed")                                 
                                     attribute_name = do_string(attribute)+"."+do_string(sub_att)+"."+do_string(att)
                                     if attribute_name not in attributes_to_drop:
                                         obj_atts[attribute_name]=str(obj[attribute][sub_att][att])
