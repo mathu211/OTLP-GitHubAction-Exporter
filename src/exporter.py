@@ -150,10 +150,9 @@ else:
 # Jobs trace span
 # Set Jobs tracer and logger
 pcontext = trace.set_span_in_context(p_parent)
-print(job_lst)
-
-print("01: Processing job ->", '\n', type(job_lst), '\n', type(job_lst[0]), '\n', job_lst[0]['name'])
+print('job_lst: ', job_lst)
 result = parse_attributes(job_lst, "steps", "job")
+print("parse_attributes result:", result, "type:", type(result))
 
 for job in job_lst:
     try:
