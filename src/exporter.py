@@ -105,9 +105,9 @@ for job in workflow_run['jobs']:
     if str(job['name']).lower() in [EXPORTER_JOB_NAME]:
         job_lst.append(job)
 
-#if len(job_lst) == 0:
-#    print("No data to export, assuming this github action workflow job is for the OTLP-GitHubAction-Exporter")
-#    exit(0)
+if len(job_lst) == 0:
+    print("No data to export, assuming this github action workflow job is for the OTLP-GitHubAction-Exporter")
+    exit(0)
 
 job_counter = meter.create_counter(name="github.workflow.overall.job_count", description="Total Number of Jobs in the Workflow Run")
 job_counter.add(len(job_lst))
@@ -153,6 +153,7 @@ pcontext = trace.set_span_in_context(p_parent)
 
 for job in job_lst:
     try:
+        job = job.to_list()
         # print("01: Processing job ->", '\n',job['name'], '\n', type(job), '\n', type(job['name']))
         result = parse_attributes(job, "steps", "job")
         print("parse_attributes result:", result, "type:", type(result))
