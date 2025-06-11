@@ -154,9 +154,8 @@ print(job_lst)
 for job in job_lst:
     try:
         print("Processing job ->",job['name'])
-        if not isinstance(job, str):
-            print("not a string, converting to string")
-            job_str = json.dumps(job)
+        if isinstance(job, str):
+            job_str = json.loads(job)
         result = parse_attributes(job_str, "steps", "job")
         print("parse_attributes result:", result, "type:", type(result))
         child_0_attributes = create_otel_attributes(parse_attributes(job,"steps","job"),GITHUB_REPOSITORY_NAME)
