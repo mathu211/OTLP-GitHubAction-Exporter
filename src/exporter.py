@@ -152,7 +152,7 @@ else:
 pcontext = trace.set_span_in_context(p_parent)
 print(job_lst)
 
-print("01: Processing job ->", '\n', type(job_lst),))
+print("01: Processing job ->", '\n', type(job_lst), '\n', type(job_lst[0]), '\n', job_lst[0]['name'])
 result = parse_attributes(job_lst, "steps", "job")
 
 for job in job_lst:
