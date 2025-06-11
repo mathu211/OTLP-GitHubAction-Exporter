@@ -153,7 +153,6 @@ pcontext = trace.set_span_in_context(p_parent)
 
 for job in job_lst:
     try:
-        job = job.to_list()
         # print("01: Processing job ->", '\n',job['name'], '\n', type(job), '\n', type(job['name']))
         result = parse_attributes(job, "steps", "job")
         print("parse_attributes result:", result, "type:", type(result))
