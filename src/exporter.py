@@ -153,7 +153,7 @@ pcontext = trace.set_span_in_context(p_parent)
 print(job_lst)
 for job in job_lst:
     try:
-        print("Processing job ->",job['name'])
+        print("01: Processing job ->", '\n',job['name'], '\n', type(job), '\n', type(job['name']))
         if isinstance(job, str):
             job = json.loads(job)
         result = parse_attributes(job, "steps", "job")
