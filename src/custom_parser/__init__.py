@@ -3,6 +3,7 @@ from pyrfc3339 import parse
 import os
 import json
 from fastcore.xtras import obj2dict
+from dateutil import parser as date_parser
 
 def do_fastcore_decode(obj):
     newobj = obj2dict(obj)
@@ -12,7 +13,30 @@ def do_time(string):
     return (int(round(time.mktime(parse(string).timetuple())) * 1000000000))
 
 def do_time_ms(string):
-    return (int(round(time.mktime(parse(string).timetuple())) * 1000))
+    from pyrfc3339 import parse as rfc_parse
+
+    # Helper to check if string is RFC 3339
+    def is_rfc3339(dt_str):
+        try:
+            rfc_parse(dt_str)
+            return True
+        except Exception:
+            return False
+
+    # If already RFC 3339, parse directly
+    if is_rfc3339(string):
+        return int(round(time.mktime(rfc_parse(string).timetuple())) * 1000)
+    else:
+        # Try to parse with dateutil and convert to RFC 3339
+        try:
+            dt = date_parser.parse(string)
+            # Format to RFC 3339 (ISO 8601 with 'Z' for UTC if needed)
+            rfc_str = dt.isoformat()
+            if rfc_str.endswith('+00:00'):
+                rfc_str = rfc_str.replace('+00:00', 'Z')
+            return int(round(time.mktime(rfc_parse(rfc_str).timetuple())) * 1000)
+        except Exception:
+            raise ValueError(f"Cannot convert '{string}' to RFC 3339 datetime")
 
 def do_string(string):
     return str(string).lower().replace(" ", "")
