@@ -262,12 +262,12 @@ for job in job_lst:
                 child_1.end(end_time=do_time(step_completed_at))
                 print("Finished processing step ->",step['name'],"from job",job['name'])
             except Exception as e:
-                print("Unable to process step ->",step['name'],"<- due to error",e)
+                print("Unable to process step ->",step['name'],"<- due to error : ",e)
                 
         child_0.end(end_time=do_time(job['completed_at']))
         print("Finished processing job ->",job['name'])
     except Exception as e:
-        print("Unable to process job ->",job['name'],"<- due to error",e)
+        print("Unable to process job ->",job['name'],"<- due to error :: ",e)
 
 workflow_run_finish_time=do_time(workflow_run_atts['updated_at'])
 p_parent.end(end_time=workflow_run_finish_time)
