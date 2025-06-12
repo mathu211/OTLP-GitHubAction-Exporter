@@ -68,13 +68,13 @@ def parse_attributes(obj,att_to_drop,otype):
                                     if attribute_name not in attributes_to_drop:                                         
                                         obj_atts[attribute_name]=str(obj[attribute][sub_att][att])  
                                         print("Check string")                                      
-                                        if attribute_name.endswith("_at"):        
-                                            print("confirmed")                                     
-                                            if obj['conclusion'] == 'skipped' or obj['conclusion'] == 'cancelled':                                                    
-                                                    pass
-                                            else:
-                                                new_Att_name=attribute_name+"_ms"
-                                                obj_atts[new_Att_name]=do_time_ms(obj[attribute][sub_att][att])
+                                        #if attribute_name.endswith("_at"):        
+                                        print("confirmed")                                     
+                                        if obj['conclusion'] == 'skipped' or obj['conclusion'] == 'cancelled':                                                    
+                                                pass
+                                        else:
+                                            new_Att_name=attribute_name+"_ms"
+                                            obj_atts[new_Att_name]=do_time_ms(obj[attribute][sub_att][att])
 
                                 
                             elif type(obj[attribute][sub_att]) is list:
