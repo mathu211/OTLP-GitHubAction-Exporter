@@ -159,11 +159,8 @@ for job in job_lst:
         result = parse_attributes(job, "steps", "job")
         print("parse_attributes result:", result, "type:", type(result))
         child_0_attributes = create_otel_attributes(parse_attributes(job,"steps","job"),GITHUB_REPOSITORY_NAME)
-        print("exception check")
         child_0_attributes[cicd_semconv.CICD_PIPELINE_TASK_NAME] = job['name']
-        print("exception check1")
         child_0_attributes[cicd_semconv.CICD_PIPELINE_TASK_RUN_ID] = job['run_id']
-        print("exception check2")
         child_0_attributes[cicd_semconv.CICD_PIPELINE_TASK_RUN_URL_FULL] = job['html_url']
         child_0 = tracer.start_span(name=str(job['name']), attributes=child_0_attributes, context=pcontext,start_time=do_time(job['started_at']), kind=trace.SpanKind.CONSUMER)
         print("exception check3")
@@ -270,6 +267,7 @@ for job in job_lst:
         print("Finished processing job ->",job['name'])
     except Exception as e:
         print("Unable to process job ->",job['name'],"<- due to error :: ",e)
+        print(job)
 
 workflow_run_finish_time=do_time(workflow_run_atts['updated_at'])
 p_parent.end(end_time=workflow_run_finish_time)
