@@ -67,7 +67,7 @@ def parse_attributes(obj,att_to_drop,otype):
                                     attribute_name = do_string(attribute)+"."+do_string(sub_att)+"."+do_string(att)                                    
                                     if attribute_name not in attributes_to_drop:                                         
                                         obj_atts[attribute_name]=str(obj[attribute][sub_att][att])  
-                                        # print("Check string: ", attribute_name)                                     
+                                        print("Check string: ", obj[attribute][sub_att])                                     
                                         if attribute_name.endswith("_at"):        
                                             print("confirmed")                                     
                                             if obj['conclusion'] == 'skipped' or obj['conclusion'] == 'cancelled':                                                    
